@@ -28,6 +28,12 @@ setTimeout(()=> console.log("2"),100)
 Promise.resolve().then(()=>console.log("3"))
 console.log("4")
 
+
+const numero:number = 10;
+
+//export const resultado:number = numero + "10";
+
+
 /*Prioridades 
 Primero se ejecutaran las tareas comunes(callback de metodos, if, for, console log, etc)
 Segundo las microtareas (Callback de promesas)
