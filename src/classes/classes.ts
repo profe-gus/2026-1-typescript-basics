@@ -1,4 +1,5 @@
-import  { ApiService } from "../api/api.service";
+import { ApiServiceAxios, ApiServiceFetch, type HttpAdapter } from '../api/api.service';
+import type { PokeAPI } from "../interfaces/pokeapi";
 
 
 class Student {
@@ -12,7 +13,7 @@ class Student {
         name:string, 
         age:number, 
         isActive:boolean,
-        private readonly apiService:ApiService
+        private readonly httpAdapter: HttpAdapter
         ){
         this.id = id;
         this.name = name;
@@ -31,12 +32,14 @@ class Student {
     }
 
     async getPokemon(name:string){
-        return await this.apiService.getPokemon(name);
+        return await this.httpAdapter.getPokemon<PokeAPI>(name);
     }
 
 }
 
-const service = new ApiService();
-export const gus = new Student(1, "Gustavo", 34, true, service)
+const serviceAxios = new ApiServiceAxios();
+const serviceFetch = new ApiServiceFetch();
+
+export const gus = new Student(1, "Gustavo", 34, true, serviceFetch)
 const pokemon = await gus.getPokemon("bulbasaur");
-console.log(pokemon.data.name);
+console.log(pokemon);
